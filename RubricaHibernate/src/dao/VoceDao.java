@@ -20,6 +20,31 @@ import model.Voce;
 
 
 public class VoceDao {
+	
+	public boolean aggiungiVoce(Voce v)
+	{
+		boolean b=false;
+		
+		Session session =HibernateUtil.openSession();
+		Transaction tx=null;
+
+		try{
+		tx=session.getTransaction();
+		tx.begin();
+		
+		session.persist(v);
+		
+		 b=true;
+		 tx.commit();
+		}catch(Exception ex){
+			tx.rollback();
+		}finally{
+			session.close();
+		}
+		
+		return b;
+
+	}
 
 	public boolean aggiungiVoce(String nome, String cognome, String telefono,long idRubrica)
 	{

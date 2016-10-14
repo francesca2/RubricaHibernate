@@ -118,6 +118,30 @@ public class RubricaDao {
 		return r;
 		
 	}
+	
+	//Aggiorna rubrica
+	public boolean aggiornaRubrica(Rubrica r)
+	{
+		boolean result=false;
+		Session session =HibernateUtil.openSession();
+		Transaction tx=null;
+
+		try{
+		tx=session.getTransaction();
+		tx.begin();
+
+		session.update(r);
+		result=true;
+		
+		 tx.commit();
+		}catch(Exception ex){
+			tx.rollback();
+		}finally{
+			session.close();
+		}
+		return result;
+		
+	}
 
 	//
 //	public boolean eliminaRubrica(String nome)

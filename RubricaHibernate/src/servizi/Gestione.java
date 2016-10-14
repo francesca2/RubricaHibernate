@@ -4,21 +4,47 @@ import java.util.Map;
 
 import model.Rubrica;
 import model.Voce;
+import dao.RubricaDao;
 import dao.VoceDao;
 
 public class Gestione {
 	
-	//Primo metodo per registrate una voce
-	public Voce aggiungiVoce(Rubrica r,String nome, String cognome, String telefono)
+	private VoceDao vdao=new VoceDao();
+	private RubricaDao rdao=new RubricaDao();
+	
+	//Aggiungi rubrica
+	public boolean registraRubrica(String nome){
+		boolean result=false;
+		Rubrica r= new Rubrica();
+		
+		boolean b=rdao.creaRubrica(r);
+		
+		if(b==true)
+		{
+			result=true;
+		}
+		
+		return result;
+	}
+	
+	
+	//Registra una voce
+	public boolean aggiungiVoce(Rubrica r,String nome, String cognome, String telefono)
 	{
-		Voce v=new Voce();
-		v.setNome(nome);
-		v.setCognome(cognome);
-		v.setTelefono(telefono);
-		
+		boolean result=false;
+
+		Voce v=new Voce(nome,cognome,telefono);
+		v.setRubrica(r);		
 		r.addVoce(v);
+		boolean b=vdao.aggiungiVoce(v);
+		rdao.aggiornaRubrica(r);
 		
-		return v;
+		if(b==true)
+		{
+			result =true;
+		}
+		
+		return result;
 		
 	}
 	
