@@ -21,8 +21,33 @@ import model.Voce;
 
 public class RubricaDao {
 	
-	public Rubrica aggiungiRubrica(String nome)
+	//Primo metodo-crea una nuova tebella rubrica
+	public boolean creaRubrica(Rubrica r){
+
+		boolean result=false;
+		
+		Session session =HibernateUtil.openSession();
+		Transaction tx=null;
+
+		try{
+		tx=session.getTransaction();
+		tx.begin();
+
+		session.persist(r);
+		result=true;
+		 tx.commit();
+		}catch(Exception ex){
+			tx.rollback();
+		}finally{
+			session.close();
+		}
+		
+		return result;
+	}
+	
+	public boolean creaRubrica(String nome)
 	{
+		boolean result=false;
 		Rubrica r =new Rubrica();
 		r.setNomeRubrica(nome);
 		
@@ -34,6 +59,7 @@ public class RubricaDao {
 		tx.begin();
 
 		session.persist(r);
+		result=true;
 		 tx.commit();
 		}catch(Exception ex){
 			tx.rollback();
@@ -41,38 +67,59 @@ public class RubricaDao {
 			session.close();
 		}
 		
-		return r;
+		return result;
 	}
 
-//	public Rubrica trovaRubrica(String nome)
-//	{
-//		Connection con;
-//		PreparedStatement pst=null;
-//		Rubrica r=null;
-//
-//		try {
-//			con = DataSource.getInstance().getConnection();
-//
-//			String sql="Select * from rubrica2 where nome_rubrica=?";
-//
-//			pst =con.prepareStatement(sql);
-//			pst.setString(1, nome);
-//
-//			pst.executeUpdate();
-//
-//			long id= getIdRubrica(nome);
-//			r=new Rubrica(id,nome);
-//
-//		} catch (SQLException | IOException | PropertyVetoException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//
-//		return r;
-//	}
-//
-//	
-//	
+	//Secondo metodo- legge una rubrica
+	
+	public Rubrica trovaRubricaConId(String idRubrica)
+	{
+		Rubrica r=null;
+		
+		Session session =HibernateUtil.openSession();
+		Transaction tx=null;
+
+		try{
+		tx=session.getTransaction();
+		tx.begin();
+
+		r=session.get(Rubrica.class, idRubrica);
+		
+		 tx.commit();
+		}catch(Exception ex){
+			tx.rollback();
+		}finally{
+			session.close();
+		}
+		return r;
+		
+	}
+	
+	public Rubrica trovaRubricaConNome(String nome)
+	{
+		Rubrica r=null;
+		Session session =HibernateUtil.openSession();
+		Transaction tx=null;
+
+		try{
+		tx=session.getTransaction();
+		tx.begin();
+
+		Query query= session.createQuery("from * Rubrica where nomeRubrica=:x");
+		query.setString("x", nome);
+		r=(Rubrica) query.uniqueResult();
+		
+		 tx.commit();
+		}catch(Exception ex){
+			tx.rollback();
+		}finally{
+			session.close();
+		}
+		return r;
+		
+	}
+
+	//
 //	public boolean eliminaRubrica(String nome)
 //	{
 //		Connection con;
