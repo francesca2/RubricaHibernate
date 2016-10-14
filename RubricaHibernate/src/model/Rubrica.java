@@ -19,7 +19,7 @@ public class Rubrica {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long idRubrica;
+	private long id_Rubrica;
 	
 	private String nomeRubrica;
 	@OneToMany(mappedBy="persona",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
@@ -31,9 +31,8 @@ public class Rubrica {
 	}
 	
 	public Rubrica(long idRubrica ,String nomeRubrica) {
-		super();
 		this.nomeRubrica = nomeRubrica;
-		this.idRubrica = idRubrica;
+		this.id_Rubrica = id_Rubrica;
 	}
 
 	public String getNomeRubrica() {
@@ -45,11 +44,23 @@ public class Rubrica {
 	}
 
 	public long getIdRubrica() {
-		return idRubrica;
+		return id_Rubrica;
 	}
 
 	public void setIdRubrica(long idRubrica) {
-		this.idRubrica = idRubrica;
+		this.id_Rubrica = idRubrica;
+	}
+	
+	public Set<Voce> getListaVoci() {
+		return listaVoci;
+	}
+
+	public void setListaVoci(Set<Voce> listaVoci) {
+		this.listaVoci = listaVoci;
+	}
+
+	public void addVoce(Voce v){
+		this.listaVoci.add(v);
 	}
 
 }
