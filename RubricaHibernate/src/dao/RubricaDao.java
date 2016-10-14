@@ -72,7 +72,7 @@ public class RubricaDao {
 
 	//Secondo metodo- legge una rubrica
 	
-	public Rubrica trovaRubricaConId(String idRubrica)
+	public Rubrica trovaRubricaConId(long idRubrica)
 	{
 		Rubrica r=null;
 		
@@ -105,7 +105,7 @@ public class RubricaDao {
 		tx=session.getTransaction();
 		tx.begin();
 
-		Query query= session.createQuery("from * Rubrica where nomeRubrica=:x");
+		Query query= session.createQuery("from Rubrica where nomeRubrica=:x");
 		query.setString("x", nome);
 		r=(Rubrica) query.uniqueResult();
 		

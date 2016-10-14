@@ -38,7 +38,7 @@ I vari database disponibili sono in core-dialect. Oracle9 è deprecato e posso a
  <property name="show_sql">true</property>
 
 <!-- Drop and re-create the database schema on startup -->
- <property name="hbm2ddl.auto">create</property>
+ <property name="hbm2ddl.auto">update</property>
 
 
 <!-- Imposto il percorso dove si trova la classe dalla queale voglio che mi crei la tabella -->
