@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -143,34 +144,27 @@ public class RubricaDao {
 		
 	}
 
-	//
-//	public boolean eliminaRubrica(String nome)
-//	{
-//		Connection con;
-//		PreparedStatement pst=null;
-//		boolean i=false;
-//		long id=getIdRubrica(nome);
-//		try {
-//			con = DataSource.getInstance().getConnection();
-//
-//			String sql="Delete from rubrica2 where id_rubrica=?";
-//
-//			pst =con.prepareStatement(sql);
-//			pst.setLong(1, id);
-//
-//			int n=pst.executeUpdate();
-//
-//			if(n>0){
-//				i=true;
-//			}
-//
-//		} catch (SQLException | IOException | PropertyVetoException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//
-//		return i;
-//	}
-//
+public List<Voce> getVociRubrica(String nome)
+{
+	List<Voce> voci= new ArrayList<Voce>();
+	Session session =HibernateUtil.openSession();
+	Transaction tx=null;
+
+	try{
+	tx=session.getTransaction();
+	tx.begin();
+
+	Query query= session.createQuery("from Rubrica where nomeRubrica=:x");
+	query.setString("x", nome);
+	 voci=query.list();
+	
+	 tx.commit();
+	}catch(Exception ex){
+		tx.rollback();
+	}finally{
+		session.close();
+	}
+	return voci;
+}
 
 }

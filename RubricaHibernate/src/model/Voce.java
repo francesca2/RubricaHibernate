@@ -24,13 +24,13 @@ public class Voce {
 		this.cognome = cognome;
 		this.telefono = telefono;
 	}
-
-	public long getIdVoce() {
+	
+	public long getId_Voce() {
 		return id_Voce;
 	}
 
-	public void setIdVoce(long idVoce) {
-		this.id_Voce = idVoce;
+	public void setId_Voce(long id_Voce) {
+		this.id_Voce = id_Voce;
 	}
 
 	public String getNome() {

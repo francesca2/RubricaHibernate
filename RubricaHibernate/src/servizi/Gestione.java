@@ -1,5 +1,6 @@
 package servizi;
 
+import java.util.List;
 import java.util.Map;
 
 import model.Rubrica;
@@ -48,34 +49,31 @@ public class Gestione {
 		
 	}
 	
-//	//metodo per aggiornare una voce
-//	public Voce aggiornaVoce(Rubrica r,String nome, String nuovoNome, String cognome, String nuovoCognome, String telefono)
+	//metodo per aggiornare una voce
+//	public boolean aggiornaVoce(Rubrica r,String nome, String nuovoNome, String cognome, String nuovoCognome, String telefono)
 //	{
-//		VoceDao vdao= new VoceDao();
-//		Map<String,Voce> rubrica= vdao.getTutteLeVoce(r.getIdRubrica());
-//		Voce v=vdao.aggiornaVoce(nome, nuovoNome, cognome, nuovoCognome, telefono, r.getIdRubrica());
-//		return v;
-//		
-//	}
+//		boolean result=vdao.aggiornaVoce(nome, nuovoNome, cognome, nuovoCognome, telefono, r.getIdRubrica());
 //	
-//	public Voce trovaVoce(Rubrica r,String nome, String cognome)
-//	{
-//		VoceDao vdao=new VoceDao();
-//		Map<String,Voce> rubrica= vdao.getTutteLeVoce(r.getIdRubrica());		
-//		Voce v= vdao.trovaVoce(nome, cognome, r.getIdRubrica());
-//		
-//		return v;
-//		
+//		return result;
 //	}
-//
-//	public boolean deleteVoce(Rubrica r,String nome, String cognome)
-//	{
-//		VoceDao vdao=new VoceDao();
-//		Map<String,Voce> rubrica= vdao.getTutteLeVoce(r.getIdRubrica());
-//		boolean b= vdao.eliminaVoce(nome, cognome, r.getIdRubrica());
-//		
-//		return b;
-//		
-//	}
+	
+	public boolean aggiornaVoce(Rubrica r,String nome, String nuovoNome, String cognome, String nuovoCognome, String telefono)
+	{
+		Voce v=vdao.trovaVoce(nome, cognome, r.getIdRubrica());
+		v.setNome(nuovoNome);
+		v.setCognome(nuovoCognome);
+		v.setTelefono(telefono);
+		boolean result=vdao.aggiornaVoce(v);
+	
+		return result;
+	}
+
+//metodo per prendere tutte le voci di rubrica
+	public List<Voce> getVoci(Rubrica r)
+	{
+		List<Voce> voci= rdao.getVociRubrica(r.getNomeRubrica());
+		
+		return voci;
+	}
 	
 }
