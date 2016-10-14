@@ -13,14 +13,13 @@ public class Voce {
 	private String telefono;
 	
 	@ManyToOne
-	private Rubrica r;
+	private Rubrica rubrica;
 
 	public Voce() {
 
 	}
 
-	public Voce(long idVoce, String nome, String cognome, String telefono) {
-		this.id_Voce = idVoce;
+	public Voce(String nome, String cognome, String telefono) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.telefono = telefono;
@@ -58,13 +57,12 @@ public class Voce {
 		this.telefono = telefono;
 	}
 
-	public Rubrica getR() {
-		return r;
+	public Rubrica getRubrica() {
+		return rubrica;
 	}
 
-	public void setR(Rubrica r) {
-		this.r = r;
+	public void setRubrica(Rubrica rubrica) {
+		this.rubrica = rubrica;
 	}
-	
 
 }

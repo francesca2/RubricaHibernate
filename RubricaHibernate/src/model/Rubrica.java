@@ -22,7 +22,7 @@ public class Rubrica {
 	private long id_Rubrica;
 	
 	private String nomeRubrica;
-	@OneToMany(mappedBy="persona",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="rubrica",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@NotFound(action=NotFoundAction.IGNORE)
 	private Set<Voce> listaVoci= new HashSet<Voce>();
 
@@ -30,9 +30,8 @@ public class Rubrica {
 
 	}
 	
-	public Rubrica(long idRubrica ,String nomeRubrica) {
+	public Rubrica(String nomeRubrica) {
 		this.nomeRubrica = nomeRubrica;
-		this.id_Rubrica = id_Rubrica;
 	}
 
 	public String getNomeRubrica() {
