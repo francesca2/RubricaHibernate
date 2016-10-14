@@ -49,14 +49,6 @@ public class Gestione {
 		
 	}
 	
-	//metodo per aggiornare una voce
-//	public boolean aggiornaVoce(Rubrica r,String nome, String nuovoNome, String cognome, String nuovoCognome, String telefono)
-//	{
-//		boolean result=vdao.aggiornaVoce(nome, nuovoNome, cognome, nuovoCognome, telefono, r.getIdRubrica());
-//	
-//		return result;
-//	}
-	
 	public boolean aggiornaVoce(Rubrica r,String nome, String nuovoNome, String cognome, String nuovoCognome, String telefono)
 	{
 		Voce v=vdao.trovaVoce(nome, cognome, r.getIdRubrica());
@@ -74,6 +66,14 @@ public class Gestione {
 		List<Voce> voci= rdao.getVociRubrica(r.getNomeRubrica());
 		
 		return voci;
+	}
+	
+	//metodo per eliminare una voce
+	public boolean eliminaVoce(Rubrica r, String nome, String cognome)
+	{
+		Voce v=vdao.trovaVoce(nome, cognome, r.getIdRubrica());
+		boolean result=vdao.eliminaVoce(v);
+		return result;
 	}
 	
 }
